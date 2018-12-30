@@ -1,0 +1,123 @@
+@import "./assets/OwlCarousel/owl.carousel.min.css";
+
+.interior, .estate, .exhibitions, .maintenance {
+    .home-main .main-headline > span {
+        white-space: normal;
+    }
+    h2 {
+        margin: 75px 0 35px 0;
+        font-size: 50px;
+        text-transform: uppercase;
+        font-weight: bold;
+        @media(max-width: 768px) {
+            font-size: 40px;
+            // margin: 35px 0;
+        }
+    }
+    p {
+        font-family: $font2;
+        font-size: 20px;
+        margin-bottom: 30px;
+        letter-spacing: 0;
+    }
+
+    .furniture-details{
+        width: 83%;
+    }
+
+    .contact-us{
+        // background: #f5f5f5;
+        h2{
+            font-size: 40px;
+            margin: 20px 0 ;
+            padding: 4px;
+            @media(max-width: 768px) {
+                font-size: 30px;
+            }
+        }
+    }
+
+}
+
+.interior, .maintenance{
+    .furniture-details{
+        margin-left: auto;
+    }
+}
+
+.estate, .exhibitions{
+    .magna{
+        direction: rtl;
+    }
+    .furniture-details{
+        margin-right: auto;
+    }
+}
+
+.interior{
+
+    .home-main{
+        .img-container{
+            background: {
+            image: url(./assets/images/interior/demo-1.jpg);
+            repeat: no-repeat;
+            size: cover;
+            position: center;
+         }
+        }
+    }
+
+}
+
+.estate{
+    .home-main{
+        .img-container{
+            background: {
+               image: url(./assets/images/estate/demo-1.jpg);
+               repeat: no-repeat;
+                size: cover;
+                position: center;
+            }
+        }
+    }
+}
+
+.exhibitions{
+    .home-main{
+        .img-container{
+            background: {
+               image: url(./assets/images/exhibitions/demo-1.jpg);
+               repeat: no-repeat;
+                size: cover;
+                position: center;
+            }
+        }
+    }
+}
+
+.maintenance{
+
+    .home-main{
+        .img-container{
+            background: {
+               image: url(./assets/images/maintenance/demo-1.jpg);
+               repeat: no-repeat;
+               size: cover;
+               position: center;
+            }
+        }
+    }
+}
+.owl-carousel{
+  direction: ltr;
+  position: relative;
+  .item {
+    display: block;
+    position: relative;
+    padding: 0;
+    // margin: 0 100px 0 0;
+    img{
+      width: 100%;
+    }
+  }
+}
