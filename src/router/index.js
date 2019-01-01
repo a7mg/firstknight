@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Home from '@/components/Home'
 import Service from '@/components/Service'
+import Profile from '@/components/Profile'
 import Error from '@/components/Error'
 
 Vue.use(Router)
@@ -15,6 +16,7 @@ const routes = [
     children: [
       { path: '', name: 'Home', component: Home },
       { path: 'services/:slug', name: 'Service', component: Service },
+      { path: 'profile', name: 'Profile', component: Profile, meta: { requiresAuth: true } },
       { path: '*', name: 'Error', component: Error }
     ]
   },

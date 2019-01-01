@@ -1,12 +1,16 @@
+const apiUrl = "https://dev.media-sci.com/first_knight/public/api/";
+window.apiUrl = apiUrl;
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 
-import VueLocalStorage from 'vue-localstorage'
+// import VueLocalStorage from 'vue-localstorage'
 // import VueCookies from 'vue-cookies'
-Vue.use(VueLocalStorage)
+// Vue.use(VueLocalStorage)
+// let storage = Vue.localStorage;
 
 import axios from 'axios'
 // Vue.prototype.$axios = Axios;
@@ -17,21 +21,14 @@ Vue.use(Meta)
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
 
-// import Vuex from 'vuex'
-// Vue.use(Vuex)
-
 // The animation plugin "SCROLL MAGIC"
 // import '../node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min'
 import './assets/js/fk'
-
-let storage = Vue.localStorage;
-const baseUrl = "https://dev.media-sci.com/first_knight/public/api/";
-
 /************************/
 // Language Section
 /************************/
 const languages = ['en', 'ar'];
-const savedLang = (storage.get('language'))?storage.get('language'):languages[0];
+const savedLang = (localStorage.getItem('language'))?localStorage.getItem('language'):languages[0];
 // let messages = {}
 const messages = {
   en: {
@@ -120,28 +117,20 @@ router.beforeEach((to, from, next) => {
   if(i18n.locale !== lang) i18n.locale = lang;
   return next();
 })
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next()
+      return
+    }
+    next('')
+  } else {
+    next() 
+  }
+})
 /************************/
 // Router Language End
 /*****************************************************************************/
-
-
-/************************/
-// VueX Store
-/************************/
-// const store = new Vuex.Store({
-//   state: {
-//     // count: 0,
-//   },
-//   mutations: {
-//   	// increment: state => state.count++,
-//     // decrement: state => state.count--
-//   }
-// })
-/************************/
-// VueX Store End
-/*****************************************************************************/
-
-
 
 /************************/
 // Main App Start
@@ -149,8 +138,8 @@ router.beforeEach((to, from, next) => {
 Vue.config.productionTip = false;
 new Vue({
   el: '#app',
-  i18n,
-  // store,
+  i18n, // Langauge
+  store, // VueX
   router,
   template: '<App/>',
   components: { App },
@@ -158,7 +147,7 @@ new Vue({
     return {
       settings: {},
       locale: i18n.locale,
-      baseUrl: baseUrl
+      apiUrl: apiUrl
     }
   },
   metaInfo() {
@@ -176,7 +165,7 @@ new Vue({
     axios({
       method: "POST",
       data: {language_symbol: i18n.locale},
-      url: baseUrl+"get-settings"
+      url: apiUrl+"get-settings"
     }).then(response => {
       this.settings = response.data.data.settings;
       // i18n.setLocaleMessage('ar', response.data.data.trans.ar)
@@ -193,7 +182,7 @@ new Vue({
   methods: {
     changeLang (val) {
       $('html').attr('lang', val)
-      storage.set('language', val)
+      localStorage.setItem('language', val)
     }
   }
 })

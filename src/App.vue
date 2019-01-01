@@ -14,13 +14,29 @@
 
         <div class="">
             <ul class="menu">
-                <li><a href="javascript:void(0)" class="open-pop" data-target="search-pop"><span class="icon search"></span> <span>{{ $t("message.search") }}</span></a></li>
-                <li><a href="javascript:void(0)" class="open-pop" data-target="login-pop"><span class="icon user"></span> <span>{{ $t("message.login") }}</span></a></li>
-                <li><a href="javascript:void(0)" class="open-pop" data-target="cart-pop"><span class="icon cart"></span> <span>{{ $t("message.cart") }}</span></a></li>
                 <li>
-                    <a href="javascript:void(0)" @click="changeLang">
-                        {{($i18n.locale =='en')?'ع':'EN'}}
+                    <a href="javascript:void(0)" class="open-pop" data-target="search-pop"><span class="icon search"></span> <span>{{ $t("message.search") }}</span></a>
+                </li>
+                <li v-if="!isLoggedIn">
+                    <a href="javascript:void(0)" class="open-pop" data-target="login-pop">
+                        <span class="icon user"></span>
+                        <span>{{ $t("message.login") }}</span>
                     </a>
+                </li>
+                <li v-if="isLoggedIn">
+                    <router-link :to="{ name: 'Profile' }">
+                        <span class="icon user"></span>
+                        <span>{{ user.name }}</span>
+                    </router-link>
+                </li>
+                <li v-if="isLoggedIn">
+                    <a href="javascript:void(0)"  @click="logout"><span>Logout</span></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="open-pop" data-target="cart-pop"><span class="icon cart"></span> <span>{{ $t("message.cart") }}</span></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" @click="changeLang">{{($i18n.locale =='en')?'ع':'EN'}}</a>
                 </li>
             </ul>
         </div>
@@ -76,7 +92,7 @@
         </div>
     </div>
 
-    <div class="login-pop fixed-pop open" style="display: block;">
+    <div class="login-pop fixed-pop">
         <div class="login-container pop-container">
             <div class="container">
                 <span class="close-pop black m-auto"></span>
@@ -217,6 +233,10 @@ export default {
         }
       }
   },
+  computed : {
+    user: function() {return this.$store.state.user},
+    isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+  },
   methods: {
       changeLang() {
         if(this.$i18n.locale == 'en')
@@ -234,7 +254,7 @@ export default {
                 language_symbol: this.$i18n.locale,
                 email: this.subscribe.email
             },
-            url: this.$root.baseUrl+"add-subscribe"
+            url: this.$root.apiUrl+"add-subscribe"
         }).then(response => {
             this.subscribe.status = response.data.status;
             this.subscribe.message = response.data.message;
@@ -249,7 +269,7 @@ export default {
         axios({
             method: "POST",
             data: this.register.data,
-            url: this.$root.baseUrl+"register"
+            url: this.$root.apiUrl+"register"
         }).then(response => {
             this.register.loading = null;
             this.register.status = response.data.status;
@@ -262,23 +282,18 @@ export default {
       },
       handleLogin(e) {
         this.login.loading = 'loading';
-        axios({
-            method: "POST",
-            data: this.login.data,
-            url: this.$root.baseUrl+"login"
-        }).then(response => {
-            this.login.loading = null;
-            this.login.status = response.data.status;
-            if(!response.data.status)
-                this.login.errors = response.data.data;
-            else {
-                this.login.message = response.data.message;
-                $('.close-pop').trigger('click');
-            }
-        }, error => {
-            console.error(error);
-        });
+        this.$store.dispatch('login', this.login.data)
+            .then(response => {
+                this.login.loading = response.loading;
+                this.login.message = response.message;
+                this.$router.push({ name: 'Profile'})
+            })
         e.preventDefault();
+      },
+      logout() {
+          this.$store.dispatch('logout').then(() => {
+            this.$router.push({ name: 'Home'})
+          })
       }
       /*validEmail: function (email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

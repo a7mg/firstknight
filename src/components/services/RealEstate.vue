@@ -96,7 +96,7 @@ export default {
                     language_symbol: 'en', //this.$i18n.locale
                     slug: 'real-state'
                 },
-                url: this.$store.state.baseUrl+"get-services"
+                url: this.$store.state.apiUrl+"get-services"
             }).then(response => {
                 this.service = response.data;
             }, error => {

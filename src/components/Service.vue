@@ -90,7 +90,7 @@ export default {
                     language_symbol: this.$i18n.locale,
                     slug: slug
                 },
-                url: this.$root.baseUrl+"get-services"
+                url: this.$root.apiUrl+"get-services"
             }).then(response => {
                 this.service = response.data.data[0];
             }, error => {
