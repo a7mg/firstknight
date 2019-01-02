@@ -1,27 +1,28 @@
 <template>
     <div>
-        <div class="content maintenance">
+        <div class="custommade">
 
             <section class="home-main">
                 <div class="main-column flex-column-reverse d-flex flex-md-row">
-                <div class="col-md-4 p-0 d-flex align-items-center">
-                    <h1 class="main-headline">
-                        <span>Maintenance</span>
-                    </h1>
+                    <div class="col-md-4 p-0 d-flex align-items-center">
+                        <h1 class="main-headline">
+                            <span>CUSTOMMADE</span>
+                        </h1>
 
-                    <a href="#" class="go-down"></a>
-                </div>
-                <div class="col-md-8 p-0">
-                    <div class="img-container"></div>
-                </div>
+                        <a href="#" class="go-down"></a>
+                    </div>
+                    <div class="col-md-8 p-0">
+                        <div class="img-container"></div>
+                    </div>
                 </div>
             </section>
 
             <section class="home-section magna">
                 <div class="row m-0 align-items-end justify-content-between">
+
                 <div class="col-md-6 p-0 mb-4 mb-sm-0 furniture-item">
                     <div class="img-container">
-                    <img class="img-fluid w-100" src="../../assets/images/maintenance/demo-3.jpg" alt="">
+                    <img class="img-fluid w-100" src="../assets/images/custommade/demo-3.jpg" alt="">
                     </div>
                     <div class="furniture-details">
                     <h2>magna velit odie varius tellus</h2>
@@ -41,9 +42,10 @@
 
                 <div class="col-md-5 col-xl-4 col-sm-8 p-0 mb-4 furniture-item furniture-img">
                     <div class="img-container">
-                    <img class="img-fluid w-100" src="../../assets/images/maintenance/demo-2.jpg" alt="">
+                    <img class="img-fluid w-100" src="../assets/images/custommade/demo-2.jpg" alt="">
                     </div>
                 </div>
+
                 </div>
             </section>
 
@@ -63,20 +65,17 @@
             </section>
 
         </div>
-
     </div>
 </template>
 
-
-
 <script>
     export default {
-        name: 'Maintenance',
+        name: 'CustoiimMade',
         data () {
             return {}
         },
         metaInfo: {
-            titleTemplate: 'Maintenance | %s'
+            titleTemplate: 'custoiimMade | %s'
         }
     }
 </script>

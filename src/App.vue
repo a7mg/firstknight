@@ -69,12 +69,12 @@
                 <li class="dropdown">
                     <a href="#">{{ $t("message.furniture") }}</a>
                     <ul>
-                        <!-- <li><router-link :to="{ name: 'ReadyMade' }">ReadyMade</router-link></li>
-                        <li><router-link :to="{ name: 'CustoiimMade' }">CustoiimMade</router-link></li> -->
+                        <li><router-link :to="{ name: 'ReadyMade' }">ReadyMade</router-link></li>
+                        <li><router-link :to="{ name: 'CustoiimMade' }">CustoiimMade</router-link></li>
                     </ul>
                 </li>
-                <li><router-link to="/about">{{ $t("message.about") }}</router-link></li>
-                <li><router-link to="/contact">{{ $t("message.contactUs") }}</router-link></li>
+                <li><router-link :to="{ name: 'About' }">{{ $t("message.about") }}</router-link></li>
+                <li><router-link :to="{ name: 'Contact' }">{{ $t("message.contactUs") }}</router-link></li>
             </ul>
         </div>
     </div>
@@ -234,7 +234,7 @@ export default {
       }
   },
   computed : {
-    user: function() {return this.$store.state.user},
+    user: function() {return this.$store.state.auth.user},
     isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
   },
   methods: {

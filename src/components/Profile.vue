@@ -15,11 +15,11 @@
         name: 'Error',
         data () {
             return {
-                user: {}
+                
             }
         },
-        created() {
-            this.user = this.$store.state.user
+        computed : {
+            user: function() {return this.$store.state.auth.user}
         },
         metaInfo: {
             titleTemplate: 'Profile | %s'

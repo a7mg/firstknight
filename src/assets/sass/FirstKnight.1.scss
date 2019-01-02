@@ -1,6 +1,6 @@
 @import "./assets/OwlCarousel/owl.carousel.min.css";
 
-.interior, .estate, .exhibitions, .maintenance {
+.interior, .estate, .exhibitions, .maintenance, .custommade {
     .home-main .main-headline > span {
         white-space: normal;
     }
@@ -45,7 +45,7 @@
     }
 }
 
-.estate, .exhibitions{
+.estate, .exhibitions, .custommade{
     .magna{
         direction: rtl;
     }
@@ -108,6 +108,186 @@
         }
     }
 }
+
+.custommade{
+    .home-main{
+        .img-container{
+            background: {
+               image: url(./assets/images/custommade/demo-1.jpg);
+               repeat: no-repeat;
+                size: cover;
+                position: center;
+            }
+        }
+    }
+}
+
+.about{
+    .home-main{
+        .img-container{
+            background: {
+               image: url(./assets/images/about/demo-1.jpg);
+               repeat: no-repeat;
+                size: cover;
+                position: center;
+            }
+        }
+    }
+    .home-section.bio-section{
+        .images-container{
+            .img-container{
+                padding-right: 20%;
+                padding-left: 0%;
+            }
+            .over{
+                padding-right: 2%;
+                padding-left: 50%;
+            }
+        }
+    }
+    .our-clients{
+        .items{
+            text-align: center;
+            margin: 50px 0;
+            @media(max-width: 768px) {
+                margin: 10px 0;
+                
+            }
+            img{
+                // width: 170px;
+                max-height: 80px;
+                @include transition(0.2s);
+                &:hover{
+                    transform: scale(1.05);
+                    -ms-transform: scale(1.05);
+                    -webkit-transform: scale(1.05);
+                    // @include transition(0.2s);
+                }
+            }
+        }
+    }
+}
+
+
+.readymade{
+    .home-main{
+        .main-headline{
+            position: relative;
+            padding-top: 200px;
+            padding-bottom: 0px;
+            padding-left: 0px;
+        }
+    }
+    .card-columns{
+        -webkit-column-count: 2;
+       -moz-column-count: 2;
+       column-count: 2;
+       @media(max-width: 576px) {
+           -webkit-column-count: 1;
+           -moz-column-count: 1;
+           column-count: 1;
+       }
+    }
+    .card{
+        border: 0;
+        .card-body{
+            padding: 10px;
+            h3 {
+                font-size: 24px;
+                text-transform: uppercase;
+                margin: 0;
+                padding: 30px 0;
+                @media (max-width: 575px) {
+                    padding: 30px 10px 10px;
+                }
+            }
+            a.more {
+                padding: 10px 0;
+                font-size: 12px;
+                color: $black;
+                font-weight: $medium;
+                text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                &:after {
+                    content: "";
+                    width: 42px;
+                    height: 2px;
+                    margin-left: 13px;
+                    display: inline-block;
+                    vertical-align: middle;
+                    background-color: $black;
+                    
+                    position: relative;
+                    left: 0;
+                    bottom: 0;
+                    @include transition(0.2s);
+                }
+                &:hover {
+                    &:after {
+                        left: -50%;
+                        margin: 0;
+                        bottom: -15px;
+                    }
+                }
+            }
+        }
+    }
+    .home-section{
+        .container{
+            @media(max-width: 768px) {
+                max-width: 100%;
+            }
+        }
+    }
+}
+
+.contact{
+    .embed-responsive{
+        height: 100vh;
+    }
+    .go-down{
+        @media(max-width: 768px) {
+            top: 10px !important;
+        }
+    }
+    .contact-details{
+        .address{
+            background: {
+                image: url(./assets/images/icons/address.png);
+            }
+        }
+        .email{
+            background: {
+                image: url(./assets/images/icons/email.png);
+            }
+        }
+        .call{
+            background: {
+                image: url(./assets/images/icons/call.png);
+            }
+        }
+    }
+    .login-container{
+        textarea.form-control{
+            border: 0;
+            border-bottom: 1px solid $black;
+            border-radius: 0;
+            padding: 2px 0;
+            height: auto;
+            box-shadow: none;
+            &:focus {
+                border-color: $black;
+                box-shadow: none;
+            }
+        }
+        .form-control{
+            background: transparent;
+        }
+    }
+}
+
+
 .owl-carousel{
   direction: ltr;
   position: relative;
