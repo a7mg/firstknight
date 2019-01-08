@@ -35,30 +35,63 @@ const moduleAuth ={
           url: window.apiUrl+"login"
         }).then(response => {
           const user = response.data.data
-          const token = response.data.data.token
-          
+          const token = user.token
+
           if(response.data.status) {
             localStorage.setItem('authUser', JSON.stringify(user))
             localStorage.setItem('token', token)
             commit('auth_success', { token, user })
             $('.close-pop').trigger('click');
             // resolve(response)
-          } else {
-
           }
+
           // Just For loading and messages
-          const loginArr = {}
-          loginArr.loading = null
-          loginArr.status = response.data.status
-          loginArr.message = response.data.message
-          resolve(loginArr)
+          const loginStatic = {}
+          loginStatic.loading = null
+          loginStatic.status = response.data.status
+          loginStatic.message = (!response.data.status)?response.data.data:response.data.message
+          resolve(loginStatic)
         }).catch(err => {
           commit('auth_error', err)
           localStorage.removeItem('token')
+          localStorage.removeItem('authUser')
           reject(err)
         });
       })
     },
+    
+    register({commit}, user){
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "POST",
+          data: user,
+          url: window.apiUrl+"register"
+        }).then(response => {
+          // Just For loading and messages
+          const registerStatic = {}
+          registerStatic.loading = null
+          registerStatic.status = response.data.status
+
+          if(response.data.status) {
+            const user = response.data.data
+            const token = user.token
+            localStorage.setItem('authUser', JSON.stringify(user))
+            localStorage.setItem('token', token)
+            commit('auth_success', { token, user })
+            $('.close-pop').trigger('click');
+          } else {
+            registerStatic.messages = response.data.data;
+          }
+          resolve(registerStatic)
+        }).catch(err => {
+          commit('auth_error', err)
+          localStorage.removeItem('token')
+          localStorage.removeItem('authUser')
+          reject(err)
+        });
+      })
+    },
+
     logout({commit}){
       return new Promise((resolve, reject) => {
         commit('logout')

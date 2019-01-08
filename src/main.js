@@ -1,5 +1,6 @@
 const apiUrl = "https://dev.media-sci.com/first_knight/public/api/";
 window.apiUrl = apiUrl;
+Vue.prototype.$apiUrl = apiUrl;
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
@@ -8,9 +9,17 @@ import {i18n} from './i18n'
 import store from './store'
 import router from './router'
 import axios from 'axios'
-// Vue.prototype.$axios = Axios;
+Vue.prototype.$axios = axios;
 import Meta from 'vue-meta'
 Vue.use(Meta)
+
+
+import VueProgressBar from 'vue-progressbar'
+const options = {
+  color: 'grey',
+  thickness: '5px'
+}
+Vue.use(VueProgressBar, options)
 
 // The animation plugin "SCROLL MAGIC"
 // import '../node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min'
@@ -30,7 +39,7 @@ new Vue({
   data() {
     return {
       settings: {},
-      locale: i18n.locale,
+      locale: i18n.locale, // For watch change lang
       apiUrl: apiUrl
     }
   },
@@ -65,8 +74,12 @@ new Vue({
   },
   methods: {
     changeLang (val) {
+      this.$i18n.locale = val
+      this.$router.replace({ params: {lang: this.$i18n.locale} })
       $('html').attr('lang', val)
       localStorage.setItem('language', val)
+      // if(val == 'ar')
+      //   import('./assets/sass/rtl.scss')
     }
   }
 })

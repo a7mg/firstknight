@@ -92,7 +92,10 @@ export default {
                 },
                 url: this.$root.apiUrl+"get-services"
             }).then(response => {
-                this.service = response.data.data[0];
+                if(response.data.data[0].slug)
+                    this.service = response.data.data[0];
+                else
+                    this.$router.push({ name: 'Error' })
             }, error => {
                 console.error(error);
             });

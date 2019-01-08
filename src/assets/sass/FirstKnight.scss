@@ -17,12 +17,18 @@ $white: #FFFFFF;
 $black: #111111;
 
 @import "FirstKnight.1";
-
-// html[lang="ar"] {direction: rtl;}
 html[lang="ar"] {
+    // direction: rtl;
+    body {
+        text-align: right;
+    }
     * {
         letter-spacing: 0 !important;
     }
+    // .mr-auto {
+    //     margin-right: 0 !important;
+    //     margin-left: auto;
+    // }
 }
 .btn {
     &.btn-black {
@@ -94,6 +100,7 @@ input.form-control {
 .message {
     margin: 10px 0 0;
     font-size: 14px;
+    color: $green;
     &.error {color: $red;}
     &.success {color: $green;}
 }
@@ -452,7 +459,7 @@ header {
             z-index: 1;
         }
         @media (max-width: 768px) {
-            font-size: 12vw;
+            font-size: 9vw;
             padding-top: 80px;
             padding-bottom: 20px;
         }
@@ -480,6 +487,11 @@ header {
             image: url(./assets/images/icons/arrow-down.png);
             position: center;
             repeat: no-repeat;
+        }
+        @media(max-width: 768px) {
+            bottom: 0;
+            top: -60px;
+            z-index: 1;
         }
     }
 }

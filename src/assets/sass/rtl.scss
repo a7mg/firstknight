@@ -1,0 +1,14 @@
+@import 'bootstrap.rtl.min.css';
+html[lang="ar"] {
+    direction: rtl;
+    body {
+        text-align: right;
+    }
+    * {
+        letter-spacing: 0 !important;
+    }
+    // .mr-auto {
+    //     margin-right: 0 !important;
+    //     margin-left: auto;
+    // }
+}

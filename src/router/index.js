@@ -46,7 +46,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const lang = to.params.lang;
-  if(!languages.includes(lang)) return next(savedLang);
+  if(!languages.includes(lang)) {
+    if(window.location.hostname != 'localhost')
+      return next('first-knight/'+savedLang)
+    else
+      return next(savedLang)
+  }
   if(i18n.locale !== lang) i18n.locale = lang;
   return next();
 })
