@@ -8,24 +8,28 @@ import Service from '@/components/Service'
 import About from '@/components/About'
 import Contact from '@/components/Contact'
 import ReadyMade from '@/components/readyMade'
-import CustoiimMade from '@/components/custoiimMade'
 import Profile from '@/components/Profile'
 import Error from '@/components/Error'
 
 Vue.use(Router)
+
+let subPath = ''
+if(window.location.hostname != 'localhost')
+  subPath = '/first-knight'
+
 const routes = [
   {
-    path: '/:lang',
+    path: subPath+'/:lang',
     component: {
       template: '<router-view></router-view>'
     },
     children: [
       { path: '', name: 'Home', component: Home },
       { path: 'services/:slug', name: 'Service', component: Service },
+      { path: 'furniture/readyMade', name: 'ReadyMade', component: ReadyMade },
+      { path: 'furniture/:slug', name: 'CustomMade', component: Service },
       { path: 'about', name: 'About', component: About },
       { path: 'contact', name: 'Contact', component: Contact },
-      { path: 'furniture/readyMade', name: 'ReadyMade', component: ReadyMade },
-      { path: 'furniture/custoiimMade', name: 'CustoiimMade', component: CustoiimMade },
       { path: 'profile', name: 'Profile', component: Profile, meta: { requiresAuth: true } },
       { path: '*', name: 'Error', component: Error }
     ]
@@ -46,12 +50,8 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const lang = to.params.lang;
-  if(!languages.includes(lang)) {
-    if(window.location.hostname != 'localhost')
-      return next('first-knight/'+savedLang)
-    else
-      return next(savedLang)
-  }
+  if(!languages.includes(lang))
+    return next(subPath+'/'+savedLang)
   if(i18n.locale !== lang) i18n.locale = lang;
   return next();
 })

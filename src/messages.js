@@ -31,7 +31,16 @@ const messages = {
 
             name: 'name',
             phone: 'phone number',
-            c_password: 'confirm password'
+            c_password: 'confirm password',
+            Looking_for_a_great_service: 'Looking for a great service?',
+            our_clients: 'our clients',
+            ReadyMade: 'ReadyMade',
+            CustoiimMade: 'CustoiimMade',
+            address: 'address',
+            call_us: 'call us',
+            drop_us_aline: 'drop us a line',
+            message: 'message',
+            send: 'send'
         }
     },
     ar: {
@@ -65,7 +74,16 @@ const messages = {
 
             name: 'الإسم',
             phone: 'رقم الهاتف',
-            c_password: 'تأكيد كلمة السر'
+            c_password: 'تأكيد كلمة السر',
+            Looking_for_a_great_service: 'تبحث عن افضل خدمة؟',
+            our_clients: 'عملائنا',
+            ReadyMade: 'جاهز',
+            CustoiimMade: 'مصنوع بطريقة مخصصة',
+            address: 'العنوان',
+            call_us: 'اتصل بنا',
+            drop_us_aline: 'تواصل معنا',
+            message: 'الرسالة',
+            send: 'أرسل'
         }
     }
 }

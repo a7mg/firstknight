@@ -39,6 +39,7 @@ new Vue({
   data() {
     return {
       settings: {},
+      services: {},
       locale: i18n.locale, // For watch change lang
       apiUrl: apiUrl
     }
@@ -54,18 +55,7 @@ new Vue({
   },
   created() {
     this.changeLang(i18n.locale);
-
-    axios({
-      method: "POST",
-      data: {language_symbol: i18n.locale},
-      url: apiUrl+"get-settings"
-    }).then(response => {
-      this.settings = response.data.data.settings;
-      // i18n.setLocaleMessage('ar', response.data.data.trans.ar)
-      // i18n.setLocaleMessage('en', response.data.data.trans.en)
-    }, error => {
-      console.error(error);
-    });
+    this.getSettings() // Get Settings
   },
   watch: {
     locale (val) {
@@ -75,11 +65,37 @@ new Vue({
   methods: {
     changeLang (val) {
       this.$i18n.locale = val
-      this.$router.replace({ params: {lang: this.$i18n.locale} })
+      this.$router.replace({ params: {lang: val} })
       $('html').attr('lang', val)
       localStorage.setItem('language', val)
+      this.getServices() // For menu services
       // if(val == 'ar')
       //   import('./assets/sass/rtl.scss')
+    },
+    getSettings() {
+      axios({
+        method: "POST",
+        data: {language_symbol: i18n.locale},
+        url: apiUrl+"get-settings"
+      }).then(response => {
+        this.settings = response.data.data.settings;
+        // i18n.setLocaleMessage('ar', response.data.data.trans.ar)
+        // i18n.setLocaleMessage('en', response.data.data.trans.en)
+      }, error => {
+        console.error(error);
+      });
+    },
+    getServices() {
+      this.$axios({
+          method: "POST",
+          data: { language_symbol: i18n.locale },
+          url: apiUrl+"get-services"
+      }).then(response => {
+          if(response.data.data)
+              this.services = response.data.data;
+      }, error => {
+          console.error(error);
+      });
     }
   }
 })

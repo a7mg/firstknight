@@ -49,7 +49,7 @@ const moduleAuth ={
           const loginStatic = {}
           loginStatic.loading = null
           loginStatic.status = response.data.status
-          loginStatic.message = (!response.data.status)?response.data.data:response.data.message
+          loginStatic.message = (!response.data.status)?response.data.data[0]:response.data.message
           resolve(loginStatic)
         }).catch(err => {
           commit('auth_error', err)

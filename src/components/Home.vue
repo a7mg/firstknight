@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home-page">
 
         <section class="home-main">
             <div class="main-column flex-column-reverse d-flex flex-md-row">
@@ -41,10 +41,10 @@
                     </div>
                     <div class="d-lg-flex align-items-center">
                         <div class="mr-auto text-center">
-                            <h3>{{ homepage.ready_made.name }}</h3>
+                            <h3>{{ $t("message.ReadyMade") }}</h3>
                         </div>
                         <div class="text-center">
-                            <a href="" class="more">{{ $t("message.viewMore") }}</a>
+                            <router-link class="more" :to="{ name: 'ReadyMade' }">{{ $t("message.viewMore") }}</router-link>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                             <h3>{{ homepage.custom_made.name }}</h3>
                         </div>
                         <div class="text-center">
-                            <a href="" class="more">{{ $t("message.viewMore") }}</a>
+                            <router-link class="more" :to="{ name: 'CustomMade', params: { slug: 'custommade' } }">{{ $t("message.viewMore") }}</router-link>
                         </div>
                     </div>
                 </div>
@@ -98,19 +98,10 @@ export default {
     data () {
         return {
             homepage: {
-                banner: {
-                    image: null
-                },
+                banner: {image: null},
                 services: [],
-                ready_made: {
-                    name: null,
-                    image: null
-                },
-                custom_made: {
-                    slug: null,
-                    name: null,
-                    image: null
-                },
+                ready_made: {name: null, image: null},
+                custom_made: {slug: null, name: null, image: null},
                 aboutus: {
                     slug: null,
                     name: null,

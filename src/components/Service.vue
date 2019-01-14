@@ -41,15 +41,21 @@
                 </div>
             </section>
 
+            <section v-if="service.sliders.length" class="home-section slider-sec">
+                <div class="owl-carousel owl-theme">
+                    <div class="item" v-for="image in service.sliders"><img :src="image" alt=""></div>
+                </div>
+            </section>
+
             <section class="home-section contact-us">
                 <div class="container">
                     <div class="bg-light p-4 px-md-5">
                         <div class="row align-items-center justify-content-between">
                             <div class="col-md-6 text-center text-md-left">
-                                <h2>Looking for a great service?</h2>
+                                <h2>{{ $t("message.Looking_for_a_great_service") }}</h2>
                             </div>
                             <div class="col-md-6 text-center text-md-right">
-                                <a href="#" class="btn btn-black">contact us</a>
+                                <router-link class="btn btn-black" :to="{ name: 'Contact' }">{{ $t("message.contactUs") }}</router-link>
                             </div>
                         </div>
                     </div>
@@ -62,12 +68,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+import '../assets/OwlCarousel/owl.carousel.min.js'
 export default {
     name: 'Service',
     data () {
         return {
-            service: {name: ''}
+            service: {name: '', sliders: {}}
         }
     },
     metaInfo () {
@@ -83,8 +89,24 @@ export default {
         next();
     },
     methods: {
+        initSlider: function() {
+            $('.owl-carousel').owlCarousel({
+                items: 1.2,
+                loop: true,
+                margin: 100,
+                nav: false,
+                responsive: {
+                    0: {
+                        margin: 30,
+                    },
+                    500: {
+                        margin: 50,
+                    },
+                }
+            });
+        },
         getData(slug) {
-            axios({
+            this.$axios({
                 method: "POST",
                 data: {
                     language_symbol: this.$i18n.locale,
@@ -92,8 +114,14 @@ export default {
                 },
                 url: this.$root.apiUrl+"get-services"
             }).then(response => {
-                if(response.data.data[0].slug)
+                if(response.data.data[0].slug) {
                     this.service = response.data.data[0];
+                    if(this.service.sliders.length) {
+                        this.$nextTick(function () {
+                            this.initSlider();
+                        }.bind(this));
+                    }
+                }
                 else
                     this.$router.push({ name: 'Error' })
             }, error => {

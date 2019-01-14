@@ -18,9 +18,9 @@
                     <div class="py-md-0 py-2 d-flex align-items-center justify-content-center">
                         <span>{{ $t("message.followUs") }}</span>
                         <ul class="follow">
-                            <li><a href="#" class="facebook"></a></li>
-                            <li><a href="#" class="instagram"></a></li>
-                            <li><a href="#" class="twitter"></a></li>
+                            <li><a target="_blank" :href="this.$root.settings.facebook_link" class="facebook"></a></li>
+                            <li><a target="_blank" :href="this.$root.settings.instagram_link" class="instagram"></a></li>
+                            <li><a target="_blank" :href="this.$root.settings.twitter_link" class="twitter"></a></li>
                         </ul>
                     </div>
                 </div>

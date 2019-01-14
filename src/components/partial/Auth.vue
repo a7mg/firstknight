@@ -76,12 +76,12 @@ export default {
         return {
             register: {
                 static: {loading: null, status: null, message: null},
-                data: {language_symbol: this.$i18n.locale, name: null, email: null, phone: null, password: null, c_password: null},
+                data: {language_symbol: null, name: null, email: null, phone: null, password: null, c_password: null},
                 errors: {name: null, email: null, phone: null, password: null, c_password: null},
             },
             login: {
                 static: {loading: null, status: null, message: null},
-                data: {language_symbol: this.$i18n.locale, email: null, password: null}
+                data: {language_symbol: null, email: null, password: null}
             }
         }
     },
@@ -91,6 +91,7 @@ export default {
     methods: {
         handleRegister() {
             this.register.static.loading = 'loading';
+            this.register.data.language_symbol = this.$i18n.locale;
             this.$store.dispatch('register', this.register.data)
                 .then(response => {
                     this.register.static = response;
@@ -104,6 +105,7 @@ export default {
         },
         handleLogin() {
             this.login.static.loading = 'loading';
+            this.login.data.language_symbol = this.$i18n.locale;
             this.$store.dispatch('login', this.login.data)
                 .then(response => {
                     this.login.static = response;

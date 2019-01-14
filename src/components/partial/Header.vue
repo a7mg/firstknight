@@ -1,5 +1,5 @@
 <template>
-    <header class="d-flex">
+    <header class="d-flex position-fixed">
         <div class="d-flex align-items-center mr-auto">
             <router-link :to="{ name: 'Home' }" class="logo">
                 <img src="../../assets/images/logo.png" alt="">

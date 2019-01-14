@@ -1,6 +1,18 @@
 $(document).ready(function() {
     // var controller = new ScrollMagic.Controller();
 });
+$(window).bind('scroll', function() {
+    if($(window).scrollTop() > 30)
+        $('header').addClass('fixed');
+    else
+        $('header').removeClass('fixed');
+});
+
+window.addEventListener('beforeinstallprompt', function(event) {
+    console.log("before install prompt")
+    event.preventDefault();
+    event.prompt();
+})
 
 // Vars & Functions
 var openPop = (me) => {

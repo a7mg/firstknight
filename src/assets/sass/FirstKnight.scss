@@ -99,7 +99,7 @@ input.form-control {
 
 .message {
     margin: 10px 0 0;
-    font-size: 14px;
+    font-size: 14px !important;
     color: $green;
     &.error {color: $red;}
     &.success {color: $green;}
@@ -135,9 +135,24 @@ header {
     left: 0;
     width: 100%;
     z-index: 100;
+    @include transition(0.2s);
+    &.fixed {
+        background-color: rgba(#FFFFFF, 0.7);
+        .menu {
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+        .logo {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            img {width: 75px;}
+        }
+    }
     .logo {
         padding: 15px 40px;
         margin-right: 15px;
+        @include transition(0.2s);
+        img {@include transition(0.2s);}
         @media (max-width: 767px) {
             padding: 10px 20px;
         }
@@ -175,6 +190,7 @@ header {
         margin: 0;
         list-style: none;
         background-color: $black;
+        @include transition(0.2s);
         li {
             cursor: pointer;
             font-size: .75rem;
@@ -429,6 +445,7 @@ header {
                         font-size: 18px;
                         color: #8d8d8d;
                         font-family: $font2;
+                        text-transform: capitalize;
                         &:hover, &.active {
                             color: $white;
                         }
@@ -441,6 +458,7 @@ header {
 .main-content {
     min-height: 100vh;
 }
+.home-page .home-main .main-headline span {white-space: nowrap;}
 .home-main {
     .main-headline {
         font-size: 100px;
@@ -465,7 +483,7 @@ header {
         }
         span {
             display: block;
-            white-space: nowrap;
+            // white-space: nowrap;
         }
     }
     .img-container {
@@ -708,3 +726,5 @@ footer {
         }
     }
 }
+
+.contact .contact-details p a {color: inherit;}

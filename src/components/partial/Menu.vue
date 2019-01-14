@@ -4,20 +4,19 @@
             <span class="close-pop"></span>
             <ul>
                 <li><router-link :to="{ name: 'Home' }">{{ $t("message.home") }}</router-link></li>
-                <li class="dropdown">
+                <li class="dropdown" v-if="this.$root.services.length">
                     <a href="#">{{ $t("message.services") }}</a>
                     <ul>
-                        <li><router-link :to="{ name: 'Service', params: { slug: 'real-estate' } }">Real Estate</router-link></li>
-                        <li><router-link :to="{ name: 'Service', params: { slug: 'interior-design' } }">Interior Design</router-link></li>
-                        <li><router-link :to="{ name: 'Service', params: { slug: 'exhibitions' } }">Exhibitions</router-link></li>
-                        <li><router-link :to="{ name: 'Service', params: { slug: 'maintenance' } }">Maintenance</router-link></li>
+                        <li v-for="service in this.$root.services">
+                            <router-link :to="{ name: 'Service', params: { slug: service.slug } }">{{ service.name }}</router-link>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#">{{ $t("message.furniture") }}</a>
                     <ul>
-                        <li><router-link :to="{ name: 'ReadyMade' }">ReadyMade</router-link></li>
-                        <li><router-link :to="{ name: 'CustoiimMade' }">CustoiimMade</router-link></li>
+                        <li><router-link :to="{ name: 'ReadyMade' }">{{ $t("message.ReadyMade") }}</router-link></li>
+                        <li><router-link :to="{ name: 'CustomMade', params: { slug: 'custommade' } }">{{ $t("message.CustoiimMade") }}</router-link></li>
                     </ul>
                 </li>
                 <li><router-link :to="{ name: 'About' }">{{ $t("message.about") }}</router-link></li>
@@ -32,8 +31,7 @@ export default {
     name: 'Menu',
     data() {
         return {
-            
         }
-    },
+    }
 }
 </script>
