@@ -7,8 +7,8 @@
         <Menu />
         <Cart />
 
-        <!-- Router View -->
-        <div class="main-content d-flex align-items-center">
+        <!-- Router View // d-flex align-items-center-->
+        <div class="main-content">
             <div class="content w-100">
                 <router-view/>
             </div>

@@ -115,18 +115,13 @@ export default {
                 })
         },
         setNull(obj){
-            if(obj != null) {
-                if(typeof obj === 'object') {
-                    Object.keys(obj).map((key, index)=>{
-                        if(typeof obj === 'object') {
-                            Object.keys(obj[key]).map((k, i)=>{
-                                obj[key][k] = null
-                            })
-                        } else obj = null
-                    })
-                }
-                else obj = null
-            }
+            if(typeof obj === 'object' && obj !== null) {
+                Object.keys(obj).map((key, index)=>{
+                    if(typeof obj[key] === 'object' && obj[key] !== null) {
+                        this.setNull(obj[key])
+                    } else obj[key] = null
+                })
+            } else obj = null
         }
         /*validEmail: function (email) {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

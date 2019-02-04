@@ -1,6 +1,14 @@
 $(document).ready(function() {
     // var controller = new ScrollMagic.Controller();
+
+    // $('.ps-current img ').elevateZoom({
+    //     zoomType: "inner",
+    //     cursor: "crosshair",
+    //     zoomWindowFadeIn: 500,
+    //     zoomWindowFadeOut: 750
+    // });
 });
+
 $(window).bind('scroll', function() {
     if($(window).scrollTop() > 30)
         $('header').addClass('fixed');
@@ -48,6 +56,18 @@ $(document)
             me.parent('.dropdown').addClass('open');
             me.next('ul').slideDown();
         }
+    })
+    .on('click', '.profile-tabs a', function(e) {
+        e.preventDefault();
+        let me = $(this);
+        let target = me.attr('href');
+        $('.profile-tabs a').removeClass('active');
+        me.addClass('active');
+        $('.profile-content > div').removeClass('active');
+        $(target).addClass('active');
+    })
+    .on('click', '.price-drop .dropdown', function() {
+        $(this).find('.drop-list').toggleClass('open-drop');
     })
 
 $(document).keyup(function(e) {

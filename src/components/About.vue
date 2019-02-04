@@ -43,7 +43,7 @@
                 <div class="container">
                     <h2 class="section-title">{{ $t("message.our_clients") }}</h2>
                     <div class='row align-items-center'>
-                        <div class="col-md-3" v-for="client in about.sliders">
+                        <div class="col-md-3" v-for="(client, index) in about.sliders" :key="index">
                             <div class='items'><img :src="client" alt=""></div>
                         </div>
                     </div>

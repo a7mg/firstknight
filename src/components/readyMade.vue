@@ -5,7 +5,7 @@
             <section class="home-main">
                 <div class='container'>
                     <h1 class="main-headline">
-                        <span>readymade</span>
+                        <span>{{ $t("message.ReadyMade") }}</span>
                     </h1>
                 </div>
             </section>
@@ -13,82 +13,21 @@
             <section class="home-section">
                 <div class="container">
                     <div class='card-columns'>
-                        <div class="card">
-                                <div class="card-body">
-                                    <div class="img-container">
-                                        <img class="img-fluid w-100" src="../assets/images/readymade/demo-1.jpg" alt="">
+                        <div class="card" v-for="(category, index) in Categories" :key="index">
+                            <div class="card-body">
+                                <div class="img-container">
+                                    <img class="img-fluid w-100" :src="category.image" alt="">
+                                </div>
+                                <div class="d-lg-flex align-items-center">
+                                    <div class="mr-auto text-center">
+                                        <h3>{{ category.name }}</h3>
                                     </div>
-                                    <div class="d-lg-flex align-items-center">
-                                        <div class="mr-auto text-center">
-                                            <h3>STORAGE</h3>
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="" class="more">view more</a>
-                                        </div>
+                                    <div class="text-center"> <!-- , query: { category_id: category.id } -->
+                                        <router-link class="more" :to="{ name: 'Products', params: { slug: category.slug, catId: category.id } }">{{ $t("message.viewMore") }}</router-link>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="img-container">
-                                        <img class="img-fluid w-100" src="../assets/images/readymade/demo-3.jpg" alt="">
-                                    </div>
-                                    <div class="d-lg-flex align-items-center">
-                                        <div class="mr-auto text-center">
-                                            <h3>CHAIRS</h3>
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="" class="more">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        <div class="card">
-                                <div class="card-body">
-                                    <div class="img-container">
-                                        <img class="img-fluid w-100" src="../assets/images/readymade/demo-2.jpg" alt="">
-                                    </div>
-                                    <div class="d-lg-flex align-items-center">
-                                        <div class="mr-auto text-center">
-                                            <h3>DESKS</h3>
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="" class="more">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="img-container">
-                                        <img class="img-fluid w-100" src="../assets/images/readymade/demo-4.jpg" alt="">
-                                    </div>
-                                    <div class="d-lg-flex align-items-center">
-                                        <div class="mr-auto text-center">
-                                            <h3>Sofas</h3>
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="" class="more">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="img-container">
-                                        <img class="img-fluid w-100" src="../assets/images/readymade/demo-5.jpg" alt="">
-                                    </div>
-                                    <div class="d-lg-flex align-items-center">
-                                        <div class="mr-auto text-center">
-                                            <h3>Flooring</h3>
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="" class="more">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -101,10 +40,33 @@
     export default {
         name: 'readyMade',
         data () {
-            return {}
+            return {
+                Categories: {}
+            }
         },
-        metaInfo: {
-            titleTemplate: 'readyMade | %s'
-        }
+        metaInfo: {titleTemplate: 'ReadyMade | %s'},
+        // metaInfo() {return {titleTemplate: 'ReadyMade | %s'}},
+        created() {
+            this.getCategories();
+        },
+        beforeRouteUpdate (to, from, next) {
+            this.getCategories();
+            next();
+        },
+        methods: {
+            getCategories() {
+                this.$axios({
+                    method: "POST",
+                    data: { language_symbol: this.$i18n.locale },
+                    url: this.$root.apiUrl+"get-categories"
+                }).then(response => {
+                    if(response.status)
+                        this.Categories = response.data.data;
+                    // this.$router.push({ name: 'Error' })
+                }, error => {
+                    console.error(error);
+                });
+            }
+        },
     }
 </script>

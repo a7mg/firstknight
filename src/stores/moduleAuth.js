@@ -12,6 +12,9 @@ const moduleAuth ={
       state.status = 'loading'
     },
     auth_success(state, { token, user }){
+      localStorage.setItem('authUser', JSON.stringify(user))
+      localStorage.setItem('token', token)
+
       state.status = 'success'
       state.token = token
       state.user = user
@@ -38,8 +41,6 @@ const moduleAuth ={
           const token = user.token
 
           if(response.data.status) {
-            localStorage.setItem('authUser', JSON.stringify(user))
-            localStorage.setItem('token', token)
             commit('auth_success', { token, user })
             $('.close-pop').trigger('click');
             // resolve(response)
@@ -75,14 +76,42 @@ const moduleAuth ={
           if(response.data.status) {
             const user = response.data.data
             const token = user.token
-            localStorage.setItem('authUser', JSON.stringify(user))
-            localStorage.setItem('token', token)
             commit('auth_success', { token, user })
             $('.close-pop').trigger('click');
           } else {
             registerStatic.messages = response.data.data;
           }
           resolve(registerStatic)
+        }).catch(err => {
+          commit('auth_error', err)
+          localStorage.removeItem('token')
+          localStorage.removeItem('authUser')
+          reject(err)
+        });
+      })
+    },
+
+    update({commit}, user){
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "POST",
+          data: user,
+          url: window.apiUrl+"edit-profile"
+        }).then(response => {
+          // Just For loading and messages
+          let profileStatic = {staticObj: {}}
+          profileStatic.staticObj.loading = null
+          profileStatic.staticObj.status = response.data.status
+          profileStatic.staticObj.message = response.data.message
+
+          if(response.data.status) {
+            const user = response.data.data
+            const token = user.token
+            commit('auth_success', { token, user })
+          } else {
+            profileStatic.errors = response.data.data;
+          }
+          resolve(profileStatic)
         }).catch(err => {
           commit('auth_error', err)
           localStorage.removeItem('token')

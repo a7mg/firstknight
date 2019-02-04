@@ -13,12 +13,13 @@ $medium: 500;
 @import url('https://fonts.googleapis.com/css?family=Crimson+Text');
 $font2: 'Crimson Text', serif;
 
-$white: #FFFFFF;
+// $white: #FFFFFF;
 $black: #111111;
 
 @import "FirstKnight.1";
+
 html[lang="ar"] {
-    // direction: rtl;
+    direction: rtl;
     body {
         text-align: right;
     }
@@ -31,7 +32,7 @@ html[lang="ar"] {
     // }
 }
 .btn {
-    &.btn-black {
+    &.btn-black, &.btn-white {
         position: relative;
         padding: 20px 60px;
         color: $white;
@@ -64,6 +65,15 @@ html[lang="ar"] {
             }
         }
     }
+
+    &.btn-white{
+        color: $black;
+        background-color: $white;
+        font-weight: bold;
+        &:before {
+            border: $black solid 2px;
+        }
+    }
     &.loading {
         background: {
             image: url(./assets/images/icons/loading.gif);
@@ -80,13 +90,14 @@ form {
         text-transform: uppercase;
     }
 }
-input.form-control {
+.form-control {
     border: 0;
     border-bottom: 1px solid $black;
     border-radius: 0;
     padding: 4px 0;
     height: auto;
     box-shadow: none;
+    text-align: inherit;
     &:focus {
         border-color: $black;
         box-shadow: none;
@@ -94,6 +105,11 @@ input.form-control {
     // &:invalid {
     //     border-color: $red;
     // }
+    option {
+        color: $white;
+        background-color: $black;
+        font-size: 18px;
+    }
 }
 .form-group+.form-group {margin: 25px 0 0;}
 
@@ -127,6 +143,21 @@ body {
     }
     &.cart {
         background-image: url(./assets/images/icons/cart.png);
+    }
+    &.star {
+        background-image: url(./assets/images/icons/star.png);
+    }
+    &.delivery {
+        background-image: url(./assets/images/icons/delivery.png);
+        margin-bottom: 10px;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+    }
+    &.back {
+        background-image: url(./assets/images/icons/left.png);
+        width: 12px;
+        height: 12px;
     }
 }
 header {
@@ -728,3 +759,91 @@ footer {
 }
 
 .contact .contact-details p a {color: inherit;}
+
+.normal-page {
+    padding-top: 150px;
+    min-height: calc(100vh - 150px);
+}
+.profile-page {
+    text-transform: uppercase;
+    a {text-decoration: none; line-height: 1;}
+    .page-title {
+        margin-bottom: 60px;
+        h3 {
+            font-size: 30px;
+            margin: 0;
+        }
+        a {
+            color: $black;
+            font-size: 16px;
+            font-family: $font2;
+            border-bottom: 1px solid;
+        }
+    }
+    .profile-tabs {
+        ul {
+            text-align: center;
+            li {
+                margin: 0 6%;
+                @media(max-width: 767px) {
+                    margin: 0 3%;
+                }
+                a {
+                    color: $black;
+                    &:hover, &.active {
+                        text-decoration: none;
+                        border-bottom: 1px solid;
+                    }
+                }
+            }
+        }
+    }
+    .profile-content {
+        > div {
+            padding: 50px 0;
+            &:not(.active) {display: none;}
+            .form {
+                max-width: 530px;
+                margin: auto;
+            }
+            .form-group > label {font-size: 16px;}
+            .form-control {font-family: $font2; height: 38px;}
+            .table {
+                tr:first-child th, tr:first-child td {
+                    border-top: 0;
+                }
+                td {
+                    font-family: $font2;
+                    font-size: 16px;
+                    padding-top: 30px;
+                    padding-bottom: 30px;
+                    p {margin-bottom: 10px;}
+                }
+                a {
+                    margin: 0 5px;
+                    color: $black;
+                    font-family: $font2;
+                    border-bottom: 1px solid;
+                }
+            }
+            .table.larg {
+                th {
+                    padding-top: 25px;
+                    padding-bottom: 25px;
+                }
+                td {
+                    padding-top: 60px;
+                    padding-bottom: 60px;
+                }
+            }
+            .set-default {
+                opacity: 0;
+                cursor: pointer;
+            }
+            .default .set-default {opacity: 1;}
+            tr:hover .set-default {opacity: 1;}
+        }
+    }
+}
+.pgwSlider.listOnTheLeft .ps-current {height: auto !important;}
+ul.pgwSlider>li img, .pgwSlider>ul>li img {min-height: auto;}

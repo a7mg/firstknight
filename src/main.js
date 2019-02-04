@@ -25,6 +25,10 @@ Vue.use(VueProgressBar, options)
 // import '../node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min'
 import './assets/js/fk'
 
+let langClass = {
+  'mr-auto': 'ml-auto',
+  'ml-auto': 'mr-auto'
+}
 /************************/
 // Main App Start
 /************************/
@@ -55,7 +59,7 @@ new Vue({
   },
   created() {
     this.changeLang(i18n.locale);
-    this.getSettings() // Get Settings
+    this.getSettings();
   },
   watch: {
     locale (val) {
@@ -68,9 +72,17 @@ new Vue({
       this.$router.replace({ params: {lang: val} })
       $('html').attr('lang', val)
       localStorage.setItem('language', val)
-      this.getServices() // For menu services
-      // if(val == 'ar')
-      //   import('./assets/sass/rtl.scss')
+      this.getServices() // For update menu services language
+
+      // change bootstrap class by array langClass
+      $('.lang-chang').each((i, n) => {
+        $(n).removeClass('lang-chang');
+      })
+      if(typeof langClass === 'object') {
+        Object.keys(langClass).map((key, index)=>{
+          $('.'+String(key)+':not(.lang-chang)').addClass(String(langClass[key])+' lang-chang').removeClass(String(key));
+        })
+      }
     },
     getSettings() {
       axios({
