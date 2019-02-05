@@ -11,6 +11,7 @@ import ReadyMade from '@/components/readyMade'
 import Products from '@/components/Products'
 import ProductDetails from '@/components/ProductDetails'
 import Profile from '@/components/Profile'
+import Cart from '@/components/Cart'
 import Error from '@/components/Error'
 
 Vue.use(Router)
@@ -32,6 +33,7 @@ const routes = [
       { path: 'furniture/readyMade/:slug/:catId', name: 'Products', component: Products },
       { path: 'furniture/readyMade/product/:slug/:productId', name: 'ProductDetails', component: ProductDetails },
       { path: 'furniture/:slug', name: 'CustomMade', component: Service },
+      { path: 'cart', name: 'Cart', component: Cart },
       { path: 'about', name: 'About', component: About },
       { path: 'contact', name: 'Contact', component: Contact },
       { path: 'profile', name: 'Profile', component: Profile, meta: { requiresAuth: true } },
