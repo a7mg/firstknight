@@ -14,7 +14,7 @@ const moduleAuth ={
     auth_success(state, { token, user }){
       localStorage.setItem('authUser', JSON.stringify(user))
       localStorage.setItem('token', token)
-
+      
       state.status = 'success'
       state.token = token
       state.user = user
@@ -30,7 +30,7 @@ const moduleAuth ={
   },
   
   actions: {
-    login({commit}, user){
+    login({commit, dispatch}, user){
       return new Promise((resolve, reject) => {
         axios({
           method: "POST",
@@ -42,8 +42,8 @@ const moduleAuth ={
 
           if(response.data.status) {
             commit('auth_success', { token, user })
+            dispatch('getCart');
             $('.close-pop').trigger('click');
-            // resolve(response)
           }
 
           // Just For loading and messages
@@ -121,11 +121,12 @@ const moduleAuth ={
       })
     },
 
-    logout({commit}){
+    logout({commit, dispatch}){
       return new Promise((resolve, reject) => {
         commit('logout')
         localStorage.removeItem('token')
         localStorage.removeItem('authUser')
+        dispatch('getCart')
         resolve()
       })
     }

@@ -353,7 +353,8 @@ header {
         transform: translateX(100%);
         margin-left: auto;
         width: 400px;
-        height: 100vh;
+        height: 100%;
+        overflow: auto;
         @media (min-width: 992px) {
             width: 33%;
         }

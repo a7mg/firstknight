@@ -1,12 +1,5 @@
 $(document).ready(function() {
     // var controller = new ScrollMagic.Controller();
-
-    // $('.ps-current img ').elevateZoom({
-    //     zoomType: "inner",
-    //     cursor: "crosshair",
-    //     zoomWindowFadeIn: 500,
-    //     zoomWindowFadeOut: 750
-    // });
 });
 
 $(window).bind('scroll', function() {

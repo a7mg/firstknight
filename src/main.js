@@ -60,6 +60,7 @@ new Vue({
   created() {
     this.changeLang(i18n.locale);
     this.getSettings();
+    this.$store.dispatch('getCart');
   },
   watch: {
     locale (val) {

@@ -62,7 +62,9 @@ const messages = {
             quantity: 'quantity',
             taxExcluded: 'tax excluded',
             relatedProducts:'related products',
-            AED: 'AED'
+            AED: 'AED',
+            total: 'total',
+            checkout: 'checkout'
         }
     },
     ar: {
@@ -127,7 +129,9 @@ const messages = {
             quantity: 'الكمية',
             taxExcluded: 'لا تشمل الضرائب',
             relatedProducts:'منتجات ذات صله',
-            AED: 'درهم إماراتي'
+            AED: 'درهم إماراتي',
+            total: 'المجموع',
+            checkout: 'اكمال الطلب'
         }
     }
 }
