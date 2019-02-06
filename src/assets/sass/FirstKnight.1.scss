@@ -56,6 +56,13 @@ button, a, .btn{
     }
 }
 
+.black-link{
+    color: $black;
+    &:hover, &:focus{
+        color: $black;
+    }
+}
+
 h4{
         margin-bottom: 10px;
         font-size: 22px;
@@ -194,6 +201,18 @@ h4{
     &:hover{
         color: $black;
 
+    }
+}
+
+.badge{
+    position: absolute;
+    border-radius: 50%;
+    left: 10px;
+    top: 0px;
+    padding: 4px;
+    @media(max-width: 580px){
+        left: 0;
+        top: -10px;
     }
 }
 
