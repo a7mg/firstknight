@@ -64,7 +64,15 @@ const messages = {
             relatedProducts:'related products',
             AED: 'AED',
             total: 'total',
-            checkout: 'checkout'
+            checkout: 'checkout',
+            proceedToCheckout: 'Proceed To Checkout',
+            price: 'price',
+            product: 'product',
+            yourOrder: 'your order',
+            personalInformation: 'personal information',
+            chooseAddress: 'choose address',
+            confirmOrder: 'confirm order',
+            defualt: 'defualt'
         }
     },
     ar: {
@@ -131,7 +139,15 @@ const messages = {
             relatedProducts:'منتجات ذات صله',
             AED: 'درهم إماراتي',
             total: 'المجموع',
-            checkout: 'اكمال الطلب'
+            checkout: 'اكمال الطلب',
+            proceedToCheckout: 'تابع اكمال الطلب',
+            price: 'السعر',
+            product: 'المنتج',
+            yourOrder: 'طلبك',
+            personalInformation: 'البيانات الشخصية',
+            chooseAddress: 'اختر عنوان',
+            confirmOrder: 'اتمام الطلب',
+            defualt: 'الاساسي'
         }
     }
 }

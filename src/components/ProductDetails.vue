@@ -75,11 +75,10 @@
                             </div>
                         </div>
                         <hr>
-                        <h4 class='mb-0'>{{$t("message.AED")}} {{ productCart.price }}</h4>
+                        <h4 class='mb-0'>{{$t("message.AED")}} {{ productCart.totalPrice }}</h4>
                         <small class='text-muted text-uppercase'>{{$t("message.taxExcluded")}}</small>
                         <p class='my-3'></p>
-                        <button class="btn btn-black w-100" @click="addToCart">{{ $t("message.addToCart") }}</button>
-                        
+                        <button class="btn btn-black w-100" @click="addToCart" v-bind:class="this.$store.state.cart.status">{{ $t("message.addToCart") }}</button>
                     </div>
                 </div>
 
@@ -109,7 +108,7 @@ export default {
         return {
             product: {name: ''},
             relatedProducts: {},
-            productCart: {product_id: null, color_id: null, color: null, options: [], quantity: 1, price: 0}
+            productCart: {product_id: null, color_id: null, color: null, options: [], quantity: 1, totalPrice: 0, price: 0}
         }
     },
     metaInfo () {
@@ -131,7 +130,8 @@ export default {
     watch: {
         productCart: {
             handler(val){
-                this.productCart.color_id = val.color.id;
+                if(val.color)
+                    this.productCart.color_id = val.color.id;
             },
             deep: true
         }
@@ -168,7 +168,7 @@ export default {
                     
                     // set default cart item options (id, colors, options)
                     this.productCart.product_id = this.product.id;
-                    this.productCart.price = this.product.price;
+                    this.productCart.price = this.productCart.totalPrice = this.product.price;
                     
                     if(this.product.colors.length)
                         this.productCart.color = this.product.colors[0]
@@ -196,10 +196,10 @@ export default {
             this.productCart.options.forEach(option => { // main price + option value price
                 price += parseInt((option.values.price)?option.values.price:0);
             });
-            
-            price = price * parseInt(this.productCart.quantity); // price with options * quantity
-
             this.productCart.price = price;
+
+            price = price * parseInt(this.productCart.quantity); // price with options * quantity
+            this.productCart.totalPrice = price;
         },
         addToCart() {
             this.$store.dispatch('addToCart', this.productCart)

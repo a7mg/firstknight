@@ -3,118 +3,54 @@
         <div class="container">
 
             <div class="cart-details">
-                <p>
-                    RETURNING CUSTOMER?
-                    <a class='font-weight-bold' href="#">
-                        CLICK HERE TO LOG IN
-                    </a>
-                </p>
                 <div class='row flex-row-reverse'>
                     <div class='col-md-6 pl-md-5 my-4'>
                         
                         <div class='cart-card border border-dark'>
-                            <p class='mb-4'>your order</p>
-                            <div class="row">
+                            <p class='mb-4'>{{$t('message.yourOrder')}}</p>
+                            <div class="row" v-for="(item, index) in cart.items" :key="index">
 
                                 <div class="col-md-3 p-0">
-                                    <img class="img-thumbnail border-0" src="images/cart.jpg" alt="Responsive image">
+                                    <img class="img-thumbnail border-0" :src="item.productt.image" alt="Responsive image">
                                 </div>
 
                                 <div class="col-md-9 p-0">
-                                    <h5 class="text-uppercase mb-2">Mason High Back</h5>
+                                    <h5 class="text-uppercase mb-2">{{item.productt.name}}</h5>
                                     <div class='d-flex align-items-center justify-content-between'>
-                                        <p>AED 364</p>
+                                        <p>{{$t('message.AED')+' '+item.total}}</p>
                                         <div class="quantity-counter d-flex align-items-center justify-content-center p-1">
                                             <button class="minus-btn" type="button" name="button">-</button>
-                                            <input class="text-center" type="text" name="name" value="1">
+                                            <input class="text-center" type="text" name="name" :value="item.quantity">
                                             <button class="plus-btn" type="button" name="button">+</button>
                                         </div>
                                     </div>
-                                    <a class='underline-link' href="#"><span>Remove</span></a>
+                                    <a class='underline-link' href="javascript:void(0)" @click="deleteItem(item.id)"><span>{{ $t("message.remove") }}</span></a>
                                 </div> 
                             </div>
                             <hr>
                             <div class='d-flex align-items-center justify-content-between'>
-                                <p class='m-0'>Total</p>
-                                <p class='m-0'>AED 364</p>
+                                <p class='m-0'>{{$t('message.total')}}</p>
+                                <p class='m-0'>{{$t('message.AED')+' '+cart.total}}</p>
                             </div>
                         </div>
                     </div>
 
                     <div class='col-md-6 pr-md-5 pt-md-4 my-4'>
-                        <h2 class='mb-4'>PERSONAL INFORMATION</h2>
-                        <div class='profile-form'>
-                            <form class="form">
-                                <div class="form-group">
-                                    <label for="profile-name">
-                                        name*
-                                    </label>
-                                    <input type="text" id="profile-name" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="company-name">
-                                        COMPANY *
-                                    </label>
-                                    <input type="text" id="company-name" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="profile-email">
-                                        e-mail*
-                                    </label>
-                                    <input type="email" id="profile-email" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="profile-city">
-                                        city*
-                                    </label>
-                                    <input type="text" id="profile-city" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="profile-country">
-                                        country*
-                                    </label>
-                                    <select id="profile-country" class="form-control">
-                                        <option name="Egypt" value="1">
-                                            Egypt
-                                        </option>
-                                        <option name="United Arab Emirates" value="2">
-                                            United Arab Emirates
-                                        </option>
+                        <h2 class='mb-4'>{{$t('message.chooseAddress')}}</h2>
+                        
+                        <div class="profile-form">
+                            <div class="table-responsive">
+                                <div class="my-4">
+                                    <select v-model="addressId" class="form-control">
+                                        <option v-for="(address, index) in addresses" :key="index" :value="address.id">{{address.address}} - [{{address.is_default?$t('message.defualt'):''}}]</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="profile-address">
-                                        address*
-                                    </label>
-                                    <input type="text" id="profile-address" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="profile-code">
-                                        ZIP/POSTAL CODE*
-                                    </label>
-                                    <input type="text" id="profile-code" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="profile-phone">
-                                        phone*
-                                    </label>
-                                    <input type="number" id="profile-phone" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="another-address">
-                                        SHIP TO A DIFFERENT ADDRESS?
-                                    </label>
-                                    <input type="text" id="another-address" class="form-control">
-                                </div>
-
-                                <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-black">PLACE YOUR ORDER</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <button class="btn btn-black w-100 mb-5" @click="addOrder">{{ $t("message.confirmOrder") }}</button>
             </div>
 
         </div>
@@ -127,7 +63,43 @@ export default {
     name: 'Checkout',
     data() {
         return {
-            
+            addressId: null,
+            addresses: []
+        }
+    },
+    computed : {
+        cart : function(){
+            if(!this.$store.getters.cart.items)
+                this.$router.go(-1)
+            return this.$store.getters.cart
+        }
+    },
+    created() {
+        this.getAddresses()
+    },
+    methods: {
+        deleteItem(cartId) {
+            this.$store.dispatch('deleteItem', cartId)
+        },
+        getAddresses() {
+            this.$axios({
+                method: "POST",
+                data: { language_symbol: this.$i18n.locale, token: this.$store.state.auth.token },
+                url: window.apiUrl+"get-addresses"
+            }).then(response => {
+                if(response.data.status)
+                    this.addresses = response.data.data
+            })
+        },
+        addOrder() {
+            this.$axios({
+                method: "POST",
+                data: { language_symbol: this.$i18n.locale, token: this.$store.state.auth.token, address_id: addressId, total: cart.total },
+                url: window.apiUrl+"get-addresses"
+            }).then(response => {
+                if(response.data.status)
+                    this.addresses = response.data.data
+            })
         }
     },
 }

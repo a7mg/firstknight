@@ -7,10 +7,10 @@
                 <h4>{{ $t("message.myCart") }}</h4>
                 
                 <div v-if="!cart.items">
-                    <p>{{ $t("message.emptyCart") }}.</p>
+                    <p class="my-5">{{ $t("message.emptyCart") }}.</p>
                     <hr class='w-100'>
                     <div class='text-center'>
-                        <a href="#" class="btn btn-black w-100">{{ $t("message.continueShopping") }}</a>
+                        <router-link class="btn btn-black w-100" :to="{ name: 'ReadyMade' }">{{ $t("message.continueShopping") }}</router-link>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
                                         <button class="plus-btn" type="button" name="button">+</button>
                                     </div>
                                 </div>
-                                <span class='underline-link' @click="deleteItem(item.id)">Remove</span>
+                                <span class='underline-link' @click="deleteItem(item.id)">{{ $t("message.remove") }}</span>
                             </div> 
                         </div>
                     </div>

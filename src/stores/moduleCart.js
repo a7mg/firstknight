@@ -17,8 +17,6 @@ const moduleCart ={
       state.status = 'error'
     },
     load_cart(state, { cart }) {
-      console.log(cart);
-      
       state.status = 'success'
       state.cart = cart
     }
@@ -32,6 +30,8 @@ const moduleCart ={
         commit('add_request')
         item.language_symbol = i18n.locale
         item.token = rootState.auth.token
+        console.log(item);
+        
         return new Promise((resolve, reject) => {
           axios({
             method: "POST",
@@ -93,7 +93,7 @@ const moduleCart ={
     },
 
     updateQunt() {
-      
+
     }
   },
 

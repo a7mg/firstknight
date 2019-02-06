@@ -7,7 +7,7 @@
                 <li class="dropdown" v-if="this.$root.services.length">
                     <a href="#">{{ $t("message.services") }}</a>
                     <ul>
-                        <li v-for="service in this.$root.services">
+                        <li v-for="service in this.$root.services" :key="service.slug">
                             <router-link :to="{ name: 'Service', params: { slug: service.slug } }">{{ service.name }}</router-link>
                         </li>
                     </ul>

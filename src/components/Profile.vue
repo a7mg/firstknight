@@ -239,7 +239,7 @@
                 })
             },
             removeAddress(id) { // done
-                var r = confirm(this.$i18n.messages[this.$i18n.locale].message.confRemoveAddress);
+                var r = confirm(this.$i18n.t('message.confRemoveAddress'));
                 if (r == true) {
                     this.$axios({
                         method: "POST",
@@ -289,7 +289,7 @@
                     }
                 })
             },
-            editAddress(id) { // done
+            editAddress(id) { // done - when click edit button in table
                 this.updateAddressId = id
                 this.address.data = this.findAddress(id);
                 this.address.data.token = this.$store.state.auth.token;

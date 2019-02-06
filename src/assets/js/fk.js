@@ -36,7 +36,7 @@ $(document)
     .on('click', '.open-pop', function() {
         openPop($(this));
     })
-    .on('click', '.close-pop, .fixed-pop, .pop-container li:not(.dropdown) a', closePop)
+    .on('click', '.close-pop, .fixed-pop, .pop-container li:not(.dropdown) a, .cart-content .btn-black', closePop)
     .on('click', '.menu-container .dropdown > a', function(e) {
         e.preventDefault();
         let me = $(this);
