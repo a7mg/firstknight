@@ -28,9 +28,9 @@
                         <span>{{ user.name }}</span>
                     </router-link>
                 </li>
-                <li v-if="isLoggedIn">
+                <!-- <li v-if="isLoggedIn">
                     <a href="javascript:void(0)" class="lang-change" @click="logout"><span>{{ $t("message.logout") }}</span></a>
-                </li>
+                </li> -->
                 <li>
                     <a href="javascript:void(0)" class="open-pop" data-target="cart-pop"><span class="icon cart"></span> <span>{{ $t("message.cart") }}</span></a>
                 </li>

@@ -18,10 +18,9 @@
                     <div v-for="(item, index) in cart.items" :key="index" class='cart-card'>
                         <div class="row">
 
-                            <div class="col-md-3 p-0">
+                            <router-link class="col-md-3 p-0" :to="{ name: 'ProductDetails', params: { slug: item.productt.slug, productId: item.productt.id } }">
                                 <img class="img-thumbnail border-0" :src="item.productt.image" alt="Responsive image">
-                            </div>
-
+                            </router-link>
                             <div class="col-md-9 p-0">
                                 <h5 class="text-uppercase mb-2">{{item.productt.name}}</h5>
                                 <div class='d-flex align-items-center justify-content-between'>
@@ -37,11 +36,17 @@
                     <hr class='w-100'>
                     <div class='text-center'>
                         <div class='d-flex align-items-center justify-content-between'>
-                            <p>{{$t('message.total')}}</p>
+                            <p class="text-capitalize">{{$t('message.total')}}</p>
                             <p>{{$t('message.AED')+' '+cart.total}}</p>
                         </div>
-                        <a href="#" class="btn btn-black my-2">{{$t('message.cart')}}</a>
-                        <a href="#" class="btn btn-black my-2">{{$t('message.checkout')}}</a>
+                        <div class="row">
+                            <div class="col-md-6 mb-md-0 mb-3">
+                                <router-link class="btn btn-black w-100 px-0" :to="{ name: 'Cart' }">{{ $t("message.cart") }}</router-link>
+                            </div>
+                            <div class="col-md-6">
+                                <router-link class="btn btn-black w-100 px-0" :to="{ name: 'Checkout' }">{{ $t("message.checkout") }}</router-link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -90,6 +90,10 @@ const moduleCart ={
           reject(err)
         });
       })
+    },
+
+    updateQunt() {
+      
     }
   },
 
