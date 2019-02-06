@@ -26,7 +26,9 @@
                                 <div class='d-flex align-items-center justify-content-between'>
                                     <p>{{$t('message.AED')+' '+item.total}}</p>
                                     <div class="quantity-counter d-flex align-items-center justify-content-center p-1">
+                                        <button class="minus-btn" type="button" name="button">-</button>
                                         <input class="text-center" type="text" name="name" :value="item.quantity">
+                                        <button class="plus-btn" type="button" name="button">+</button>
                                     </div>
                                 </div>
                                 <span class='underline-link' @click="deleteItem(item.id)">Remove</span>
