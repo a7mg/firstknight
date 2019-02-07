@@ -18,10 +18,10 @@
                     <div v-for="(item, index) in cart.items" :key="index" class='cart-card'>
                         <div class="row">
 
-                            <router-link class="col-md-3 p-0" :to="{ name: 'ProductDetails', params: { slug: item.productt.slug, productId: item.productt.id } }">
+                            <router-link class="col-3 p-0" :to="{ name: 'ProductDetails', params: { slug: item.productt.slug, productId: item.productt.id } }">
                                 <img class="img-thumbnail border-0" :src="item.productt.image" alt="Responsive image">
                             </router-link>
-                            <div class="col-md-9 p-0">
+                            <div class="col-9 p-0">
                                 <h5 class="text-uppercase mb-2">{{item.productt.name}}</h5>
                                 <div class='d-flex align-items-center justify-content-between'>
                                     <p>{{$t('message.AED')+' '+item.total}}</p>

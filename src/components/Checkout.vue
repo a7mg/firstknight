@@ -10,11 +10,11 @@
                             <p class='mb-4'>{{$t('message.yourOrder')}}</p>
                             <div class="row" v-for="(item, index) in cart.items" :key="index">
 
-                                <div class="col-md-3 p-0">
+                                <div class="col-3 p-0">
                                     <img class="img-thumbnail border-0" :src="item.productt.image" alt="Responsive image">
                                 </div>
 
-                                <div class="col-md-9 p-0">
+                                <div class="col-9 p-0">
                                     <h5 class="text-uppercase mb-2">{{item.productt.name}}</h5>
                                     <div class='d-flex align-items-center justify-content-between'>
                                         <p>{{$t('message.AED')+' '+item.total}}</p>
@@ -41,8 +41,12 @@
                         <div class="profile-form">
                             <div class="table-responsive">
                                 <div class="my-4">
-                                    <select v-model="addressId" class="form-control">
-                                        <option v-for="(address, index) in addresses" :key="index" :value="address.id">{{address.address}} - [{{address.is_default?$t('message.defualt'):''}}]</option>
+                                    <select  class="form-control">
+                                        <option v-for="(address, index) in addresses"
+                                            :selected="address.is_default"
+                                            :key="index" :value="address.id">
+                                            {{address.address}} - [{{address.is_default?$t('message.defualt'):''}}]
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -68,18 +72,20 @@ export default {
         }
     },
     computed : {
-        cart : function(){
-            if(!this.$store.getters.cart.items)
-                this.$router.go(-1)
-            return this.$store.getters.cart
-        }
+        cart : function(){return this.$store.getters.cart}
     },
     created() {
         this.getAddresses()
     },
     methods: {
         deleteItem(cartId) {
-            this.$store.dispatch('deleteItem', cartId)
+            this.$store.dispatch('deleteItem', cartId).then(response => {
+                if(!this.$store.getters.cart.items)
+                    this.$router.go(-1)
+            })
+        },
+        findAddress(id) {
+            return this.addresses.find(address => address.id === id)
         },
         getAddresses() {
             this.$axios({
@@ -95,10 +101,9 @@ export default {
             this.$axios({
                 method: "POST",
                 data: { language_symbol: this.$i18n.locale, token: this.$store.state.auth.token, address_id: addressId, total: cart.total },
-                url: window.apiUrl+"get-addresses"
+                url: window.apiUrl+"add-order"
             }).then(response => {
-                if(response.data.status)
-                    this.addresses = response.data.data
+                
             })
         }
     },

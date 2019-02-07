@@ -39,7 +39,7 @@
                     <a href="javascript:void(0)" class="lang-change" @click="logout"><span>{{ $t("message.logout") }}</span></a>
         </li>-->
         <li class="position-relative">
-          <span class="badge badge-light">0</span>
+          <span v-if="cart.items" class="badge badge-light">{{cart.items.length}}</span>
           
           <a href="javascript:void(0)" class="open-pop" data-target="cart-pop">
             <span class="icon cart"></span>
@@ -62,12 +62,9 @@ export default {
     return {};
   },
   computed: {
-    user: function() {
-      return this.$store.state.auth.user;
-    },
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
-    }
+    user: function() {return this.$store.state.auth.user;},
+    isLoggedIn: function() {return this.$store.getters.isLoggedIn;},
+    cart : function(){return this.$store.getters.cart}
   },
   methods: {
     changeLang() {
