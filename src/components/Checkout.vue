@@ -41,11 +41,11 @@
                         <div class="profile-form">
                             <div class="table-responsive">
                                 <div class="my-4">
-                                    <select  class="form-control">
+                                    <select v-model="order.addressId" class="form-control">
                                         <option v-for="(address, index) in addresses"
                                             :selected="address.is_default"
                                             :key="index" :value="address.id">
-                                            {{address.address}} - [{{address.is_default?$t('message.defualt'):''}}]
+                                            {{address.address}}{{address.is_default?' - ['+$t('message.defualt')+']':''}}
                                         </option>
                                     </select>
                                 </div>
@@ -53,8 +53,12 @@
                         </div>
                     </div>
                 </div>
-
-                <button class="btn btn-black w-100 mb-5" @click="addOrder">{{ $t("message.confirmOrder") }}</button>
+                <div class="text-center">
+                    <p class="message mb-3" v-if="order.static.message" v-bind:class="order.static.status? 'success':'error'">
+                        {{order.static.message}}
+                    </p>
+                </div>
+                <button class="btn btn-black w-100 mb-5" v-bind:class="order.static.loading" @click="addOrder">{{ $t("message.confirmOrder") }}</button>
             </div>
 
         </div>
@@ -67,7 +71,11 @@ export default {
     name: 'Checkout',
     data() {
         return {
-            addressId: null,
+            order: {
+                addressId: null,
+                static: {loading: null, status: null, message: null},
+                errors: null
+            },
             addresses: []
         }
     },
@@ -84,6 +92,9 @@ export default {
                     this.$router.go(-1)
             })
         },
+        defaultAddress() {
+            return this.addresses.find(address => address.is_default === 1).id
+        },
         findAddress(id) {
             return this.addresses.find(address => address.id === id)
         },
@@ -93,17 +104,29 @@ export default {
                 data: { language_symbol: this.$i18n.locale, token: this.$store.state.auth.token },
                 url: window.apiUrl+"get-addresses"
             }).then(response => {
-                if(response.data.status)
+                if(response.data.status) {
                     this.addresses = response.data.data
+                    this.order.addressId = this.defaultAddress()
+                }
             })
         },
         addOrder() {
+            this.order.static.loading = 'loading'
             this.$axios({
                 method: "POST",
-                data: { language_symbol: this.$i18n.locale, token: this.$store.state.auth.token, address_id: addressId, total: cart.total },
+                data: {
+                    language_symbol: this.$i18n.locale,
+                    token: this.$store.state.auth.token,
+                    total: this.cart.total,
+                    address_id: this.order.addressId,
+                    product_ids: null
+                },
                 url: window.apiUrl+"add-order"
             }).then(response => {
-                
+                this.order.static.loading = null
+                this.order.static.status = response.data.status
+                this.order.static.message = response.data.message
+                console.log(response);
             })
         }
     },

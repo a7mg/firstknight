@@ -1,18 +1,13 @@
 {
   "name": "First Knight",
   "short_name": "First Knight",
-  // "icons": [
-  //   {
-  //     "src": "/first-knight/static/img/icons/android-chrome-192x192.png",
-  //     "sizes": "192x192",
-  //     "type": "image/png"
-  //   },
-  //   {
-  //     "src": "/first-knight/static/img/icons/android-chrome-512x512.png",
-  //     "sizes": "512x512",
-  //     "type": "image/png"
-  //   }
-  // ],
+  "icons": [
+    {
+      "src": "/first-knight/static/img/icons/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
   "start_url": "/first-knight/index.html",
   "display": "standalone",
   "background_color": "#000000",
