@@ -48,7 +48,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 offset-xl-2 col-sm-5 offset-sm-1 p-0 furniture-item">
+                <div class="col-xl-2 col-sm-1 d-none d-sm-block"></div>
+                <div class="col-xl-4 col-sm-5 p-0 furniture-item">
                     <div class="img-container">
                         <img class="img-fluid w-100" :src="homepage.custom_made.image" alt="">
                     </div>

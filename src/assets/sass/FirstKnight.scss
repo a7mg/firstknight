@@ -15,22 +15,8 @@ $font2: 'Crimson Text', serif;
 
 // $white: #FFFFFF;
 $black: #111111;
-
 @import "FirstKnight.1";
 
-html[lang="ar"] {
-    direction: rtl;
-    body {
-        text-align: right;
-    }
-    * {
-        letter-spacing: 0 !important;
-    }
-    // .mr-auto {
-    //     margin-right: 0 !important;
-    //     margin-left: auto;
-    // }
-}
 .btn {
     &.btn-black, &.btn-white {
         position: relative;
@@ -240,18 +226,18 @@ header {
             }
         }
         @media (max-width: 1200px) {
-            padding: 2em 1em;
+            padding: 2em 1em !important;
         }
         @media (max-width: 992px) {
             li {
                 .icon {
-                    margin: 0;
+                    margin: 0 !important;
                     & + span{display: none;}
                 }
             }
         }
         @media (max-width: 580px) {
-            padding: 1em 0.5em;
+            padding: 1em 0.5em !important;
             margin-top: 10px;
             li {
                 margin: 0 8px;
@@ -271,7 +257,8 @@ header {
     max-width: 100%;
     background-color: rgba($black, 0.8);
     display: none;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     .pop-container {
         @include transition(0.2s);
     }
@@ -346,7 +333,7 @@ header {
 .cart-pop {
     &.open {
         .cart-container {
-            transform: translateX(0);
+            transform: translateX(0) !important;
         }
     }
     .cart-container {
@@ -401,7 +388,7 @@ header {
 .menu-pop {
     &.open {
         .menu-container {
-            transform: translateX(0);
+            transform: translateX(0) !important;
         }
     }
     .menu-container {
@@ -851,3 +838,141 @@ footer {
 }
 .pgwSlider.listOnTheLeft .ps-current {height: auto !important;}
 ul.pgwSlider>li img, .pgwSlider>ul>li img {min-height: auto;}
+
+/******************************************************/
+html[lang="ar"] {
+    direction: rtl;
+    body {text-align: right;}
+    * {letter-spacing: 0 !important;}
+
+    .icon {
+        .delivery {
+            margin-left: 10px;
+            margin-right: 0;
+        }
+    }
+    header {
+        .logo {
+            margin-right: 0;
+            margin-left: 15px;
+        }
+        .menu-btn {
+            div {
+                margin-right: 0;
+                margin-left: 20px;
+            }
+        }
+        .menu {
+            padding: 2em 1.3em 2em 4em;
+            li {
+                .icon {
+                    margin-right: 0;
+                    margin-left: 15px;
+                }
+            }
+        }
+    }
+    .login-pop {
+        .user-login-form {
+            > div:first-child {
+                @media(min-width: 768px) {
+                    border-right: 0;
+                    border-left: 1px solid #efefef;
+                }
+            }
+        }
+    }
+    .cart-pop {
+        .cart-container {
+            margin-left: 0;
+            margin-right: auto;
+            transform: translateX(-100%);
+        }
+    }
+    .menu-pop {
+        .menu-container {
+            margin-left: auto;
+            transform: translateX(100%);
+            > ul > li {
+                > a:after {
+                    left: auto;
+                    right: 0;
+                }
+                &.dropdown > a {
+                    padding-right: 0;
+                    padding-left: 30px;
+                    &:before {
+                        right: auto;
+                        left: 0;
+                    }
+                }
+            }
+        }
+    }
+    .home-main {
+        .main-headline {
+            padding-left: 0;
+            padding-right: 5vw;
+        }
+        .go-down {
+            left: auto;
+            right: 30px;
+        }
+    }
+    section {
+        &.furniture {
+            .furniture-item {
+                a.more {
+                    &:after {
+                        margin-left: 0;
+                        margin-right: 13px;
+                        left: auto;
+                        right: 0;
+                    }
+                    &:hover {
+                        &:after {
+                            left: 0;
+                            right: -50%;
+                        }
+                    }
+                }
+            }
+        }
+        &.bio-section {
+            .images-container {
+                .img-container {
+                    padding-left: 0;
+                    padding-right: 20%;
+                    &.over {
+                        padding-right: 0;
+                        padding-left: 52%;
+                    }
+                }
+            }
+        }
+    }
+    footer {
+        .footer-top {
+            .form {
+                .form-control {
+                    padding-right: 0;
+                    padding-left: 150px;
+                }
+                .btn {
+                    right: auto;
+                    left: 2px;
+                }
+            }
+            .follow {
+                li {
+                    margin-left: 0;
+                    margin-right: 15px;
+                }
+            }
+        }
+    }
+    .badge {
+        right: 0;
+        left: auto;
+    }
+}
