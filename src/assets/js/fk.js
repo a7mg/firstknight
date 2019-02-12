@@ -1,7 +1,4 @@
 $(document).ready(function() {
-    // var controller = new ScrollMagic.Controller();
-
-    console.log(window.location.hash);
     let Winhash = window.location.hash
     if(Winhash != '')
         $('.profile-tabs a[href="'+Winhash+'"]').trigger('click')

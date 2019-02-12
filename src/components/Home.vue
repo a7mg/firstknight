@@ -12,7 +12,8 @@
                     <a href="#" class="go-down d-none d-md-block"></a>
                 </div>
                 <div class="col-md-8 p-0">
-                    <div class="img-container" v-bind:style="{ 'background-image': 'url(' + homepage.banner.image + ')' }"></div>
+                    <div class="img-container" 
+                        v-bind:style="{ 'background-image': 'url(' + homepage.banner.image + ')' }"></div>
                 </div>
             </div>
         </section>
@@ -20,7 +21,7 @@
         <section class="home-section services">
             <h2 class="section-title">{{ $t("message.services") }}</h2>
             <div class="row m-0">
-                <div v-for="service in homepage.services" class="col-6 col-lg-3 col-sm-6 p-0">
+                <div v-for="service in homepage.services" :key="service.slug" class="col-6 col-lg-3 col-sm-6 p-0">
                     <router-link :to="{ name: 'Service', params: { slug: service.slug } }">
                         <div class="img-container">
                             <img :src="service.home_page_imagee" alt="">

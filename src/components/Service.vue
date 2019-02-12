@@ -43,7 +43,7 @@
 
             <section v-if="service.sliders.length" class="home-section slider-sec">
                 <div class="owl-carousel owl-theme">
-                    <div class="item" v-for="image in service.sliders"><img :src="image" alt=""></div>
+                    <div class="item" v-for="image in service.sliders" :key="image"><img :src="image" alt=""></div>
                 </div>
             </section>
 

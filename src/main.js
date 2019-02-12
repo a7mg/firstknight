@@ -13,7 +13,6 @@ Vue.prototype.$axios = axios;
 import Meta from 'vue-meta'
 Vue.use(Meta)
 
-
 import VueProgressBar from 'vue-progressbar'
 const options = {
   color: 'grey',
@@ -22,7 +21,16 @@ const options = {
 Vue.use(VueProgressBar, options)
 
 // The animation plugin "SCROLL MAGIC"
-// import '../node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min'
+// import Scrollmagic from 'scrollmagic'
+// import Scrollmagic from 'scrollmagic'
+// var controller = new Scrollmagic.Controller();
+// var scene = new Scrollmagic.Scene({
+//   triggerElement: 'section.services',
+//   duration: 300 /* How many pixels to scroll / animate */
+// })
+// .setTween(".img-container img", 0.5, {opacity: '0.5', scale: '1.2'})
+// .addTo(controller);
+
 import './assets/js/fk'
 
 let langClass = {
