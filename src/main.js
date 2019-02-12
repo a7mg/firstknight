@@ -35,7 +35,9 @@ import './assets/js/fk'
 
 let langClass = {
   'mr-auto': 'ml-auto',
-  'ml-auto': 'mr-auto'
+  'ml-auto': 'mr-auto',
+  'text-right': 'text-left',
+  'text-left': 'text-right',
 }
 /************************/
 // Main App Start
@@ -66,7 +68,7 @@ new Vue({
     }
   },
   created() {
-    this.changeLang(i18n.locale);
+    this.changeLang(i18n.locale, true);
     this.getSettings();
     this.$store.dispatch('getCart');
   },
@@ -76,7 +78,7 @@ new Vue({
     }
   },
   methods: {
-    changeLang (val) {
+    changeLang (val, created) {
       this.$i18n.locale = val
       this.$router.replace({ params: {lang: val} })
       $('html').attr('lang', val)
@@ -84,14 +86,21 @@ new Vue({
       this.getServices() // For update menu services language
 
       // change bootstrap class by array langClass
-      $('.lang-chang').each((i, n) => {
-        $(n).removeClass('lang-chang');
-      })
-      if(typeof langClass === 'object') {
-        Object.keys(langClass).map((key, index)=>{
-          $('.'+String(key)+':not(.lang-chang)').addClass(String(langClass[key])+' lang-chang').removeClass(String(key));
-        })
+      if((created && val=='ar') || !created) {
+        this.changeClasses()
       }
+    },
+    changeClasses() {
+      setTimeout(()=>{
+        $('.lang-chang').each((i, n) => {
+          $(n).removeClass('lang-chang');
+        })
+        if(typeof langClass === 'object') {
+          Object.keys(langClass).map((key, index)=>{
+            $('.'+String(key)+':not(.lang-chang)').addClass(String(langClass[key])+' lang-chang').removeClass(String(key));
+          })
+        }
+      }, 1)
     },
     getSettings() {
       axios({

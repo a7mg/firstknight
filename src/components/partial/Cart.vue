@@ -1,7 +1,7 @@
 <template>
     <div class="cart-pop fixed-pop">
         <div class="cart-container pop-container">
-            <span class="close-pop black ml-auto mr-md-4"></span>
+            <div class="px-md-4"><span class="close-pop black ml-auto"></span></div>
             
             <div class="cart-content p-md-4">
                 <h4>{{ $t("message.myCart") }}</h4>
