@@ -39,6 +39,7 @@ $(document)
         openPop($(this));
     })
     .on('click', '.close-pop, .fixed-pop, .pop-container li:not(.dropdown) a, .cart-content .btn-black', closePop)
+    .on('submit', '.search-form', closePop)
     .on('click', '.menu-container .dropdown > a', function(e) {
         e.preventDefault();
         let me = $(this);

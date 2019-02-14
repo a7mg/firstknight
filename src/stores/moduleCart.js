@@ -30,7 +30,6 @@ const moduleCart ={
         commit('add_request')
         item.language_symbol = i18n.locale
         item.token = rootState.auth.token
-        console.log(item);
         
         return new Promise((resolve, reject) => {
           axios({
@@ -92,8 +91,21 @@ const moduleCart ={
       })
     },
 
-    updateQunt() {
-
+    updateQunt({commit, dispatch, rootState}, update) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "POST",
+          data: {language_symbol: i18n.locale, token: rootState.auth.token, cart_id: update.id, quantity: update.quant},
+          url: window.apiUrl+"update-cart"
+        }).then(response => {
+          if(response.data.status)
+            dispatch('getCart')
+          resolve()
+        }).catch(err => {
+          commit('add_error', err)
+          reject(err)
+        });
+      })
     }
   },
 

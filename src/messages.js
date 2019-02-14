@@ -72,7 +72,10 @@ const messages = {
             personalInformation: 'personal information',
             chooseAddress: 'choose address',
             confirmOrder: 'confirm order',
-            defualt: 'defualt'
+            defualt: 'defualt',
+            order: 'order',
+            date: 'date',
+            shippingStatus: 'shipping status'
         }
     },
     ar: {
@@ -147,7 +150,10 @@ const messages = {
             personalInformation: 'البيانات الشخصية',
             chooseAddress: 'اختر عنوان',
             confirmOrder: 'اتمام الطلب',
-            defualt: 'الاساسي'
+            defualt: 'الاساسي',
+            order: 'الطلب',
+            date: 'التاريخ',
+            shippingStatus: 'حالة الطلب'
         }
     }
 }

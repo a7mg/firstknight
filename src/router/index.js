@@ -13,6 +13,7 @@ import ProductDetails from '@/components/ProductDetails'
 import Profile from '@/components/Profile'
 import Cart from '@/components/Cart'
 import Checkout from '@/components/Checkout'
+import Order from '@/components/Order'
 import Error from '@/components/Error'
 
 Vue.use(Router)
@@ -32,10 +33,12 @@ const routes = [
       { path: 'services/:slug', name: 'Service', component: Service },
       { path: 'furniture/readyMade', name: 'ReadyMade', component: ReadyMade },
       { path: 'furniture/readyMade/:slug/:catId', name: 'Products', component: Products },
+      { path: 'furniture/search/:title', name: 'Search', component: Products },
       { path: 'furniture/readyMade/product/:slug/:productId', name: 'ProductDetails', component: ProductDetails },
       { path: 'furniture/:slug', name: 'CustomMade', component: Service },
       { path: 'cart', name: 'Cart', component: Cart },
-      { path: 'Checkout', name: 'Checkout', component: Checkout },
+      { path: 'checkout', name: 'Checkout', component: Checkout },
+      { path: 'order/:orderId', name: 'Order', component: Order },
       { path: 'about', name: 'About', component: About },
       { path: 'contact', name: 'Contact', component: Contact },
       { path: 'profile', name: 'Profile', component: Profile, meta: { requiresAuth: true } },

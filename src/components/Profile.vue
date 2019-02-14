@@ -61,22 +61,16 @@
                     <div class="table-responsive">
                         <table class="table larg text-center">
                             <tr>
-                                <th>order #</th>
-                                <th>date</th>
-                                <th>shipping status</th>
-                                <th>total</th>
+                                <th>{{$t('message.order')}} #</th>
+                                <th>{{$t('message.date')}}</th>
+                                <th>{{$t('message.shippingStatus')}}</th>
+                                <th>{{$t('message.total')}}</th>
                             </tr>
-                            <tr>
-                                <td>234567423</td>
-                                <td>21 / 1 / 2018</td>
-                                <td>Delivered</td>
-                                <td>AED 364</td>
-                            </tr>
-                            <tr>
-                                <td>234567423</td>
-                                <td>21 / 1 / 2018</td>
-                                <td>Delivered</td>
-                                <td>AED 364</td>
+                            <tr v-for="(order, index) in orders" :key="index" >
+                                <td><router-link :to="{ name: 'Order', params: { orderId: order.id } }">{{order.id}}</router-link></td>
+                                <td>{{order.date}}</td>
+                                <td>{{order.order_status}}</td>
+                                <td>{{$t("message.AED") + " " + order.total}}</td>
                             </tr>
                         </table>
                     </div>
@@ -168,12 +162,14 @@
                     errors: {address: null, country_id: null, city: null, zip_code: null, phone: null},
                 },
                 addresses: [],
+                orders: [],
                 updateAddressId: null
             }
         },
         created() {
             this.getCountries()
             this.getAddresses()
+            this.getOrders()
             this.profile.data = {... this.user}
         },
         computed : {
@@ -295,6 +291,16 @@
                 this.address.data.token = this.$store.state.auth.token;
                 this.address.data.address_id = this.updateAddressId;
                 $('html, body').animate({scrollTop: $('#address-tab form').offset().top - 100});
+            },
+            getOrders() { // done
+                this.$axios({
+                    method: "POST",
+                    data: { language_symbol: this.$i18n.locale, token: this.$store.state.auth.token },
+                    url: window.apiUrl+"get-orders"
+                }).then(response => {
+                    if(response.data.status)
+                        this.orders = response.data.data
+                })
             },
             setNull(obj){
                 if(typeof obj === 'object' && obj !== null) {

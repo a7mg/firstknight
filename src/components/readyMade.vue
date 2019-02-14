@@ -14,7 +14,7 @@
                 <div class="container">
                     <div class='card-columns'>
                         <div class="card" v-for="(category, index) in Categories" :key="index">
-                            <div class="card-body" v-wow="{ 'animation-name': 'slideUpIn','animation-duration': '2s' }">
+                            <div class="card-body">
                                 <div class="img-container">
                                     <img class="img-fluid w-100" :src="category.image" alt="">
                                 </div>

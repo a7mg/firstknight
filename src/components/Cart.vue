@@ -36,9 +36,9 @@
                             <td>{{$t('message.AED')+' '+item.price}}</td>
                             <td>
                                 <div class="quantity-counter d-flex align-items-center justify-content-center p-1">
-                                    <button class="minus-btn" type="button" name="button">-</button>
-                                    <input class="text-center" type="text" name="name" :value="item.quantity">
-                                    <button class="plus-btn" type="button" name="button">+</button>
+                                    <button @click="countDown(item.id, item.quantity)">-</button>
+                                    <span>{{item.quantity}}</span>
+                                    <button @click="countUp(item.id, item.quantity)">+</button>
                                 </div>
                             </td>
                             <td>{{$t('message.AED')+' '+item.total}}</td>
@@ -78,6 +78,14 @@ export default {
     methods: {
         deleteItem(cartId) {
             this.$store.dispatch('deleteItem', cartId)
+        },
+        countUp(id, quant) {
+            let update = {id: id, quant: parseInt(quant) + 1}
+            this.$store.dispatch('updateQunt', update)
+        },
+        countDown(id, quant) {
+            let update = {id: id, quant: parseInt(quant) - 1}
+            this.$store.dispatch('updateQunt', update)
         }
     },
 }
